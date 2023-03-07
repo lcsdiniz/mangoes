@@ -1,29 +1,27 @@
 import { useQuery } from '@apollo/client';
-import { Header as MantineHeader, Group, Text, MantineColor, SelectItemProps, Autocomplete, Menu, Avatar, UnstyledButton, MediaQuery } from '@mantine/core';
+import { Header as MantineHeader, Group, Text, MantineColor, SelectItemProps, Autocomplete, Menu, Avatar, UnstyledButton, MediaQuery, Select, Progress, Loader } from '@mantine/core';
 import { forwardRef, useContext, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import { Logo } from '../Logo/Logo';
 import { GET_MEDIA_BY_SEARCH_STRING } from '../../graphql/queries/getMediaBySearchString';
 import { AuthContext, AuthContextType } from '../../hooks/auth';
 import { useStyles } from './styles';
 
-const AutoCompleteItem = forwardRef<HTMLDivElement, ItemProps>(
-  ({ id, description, value, image, onMouseDown, ...others }: ItemProps, ref) => (
-    <Link to={`manga/${id}`} onClick={()=>{
-      const dropdown = document.getElementsByClassName('mantine-Autocomplete-dropdown');
-      // dropdown && dropdown[0].setAttribute('aria-expanded', 'false')
-      dropdown && dropdown[1].setAttribute('aria-expanded', 'false')
-    }} style={{ textDecoration: 'none',  }}>
+const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
+  ({ value, description, label, image, ...others }: ItemProps, ref) => (
+    <Link to={`manga/${value}`} style={{ textDecoration: 'none',  }}>
       <div ref={ref} {...others}>
         <Group noWrap>
           <img src={image} />
           
           <div>
-            <Text>{value}</Text>
-            <Text size="xs" color="dimmed">
-              <div dangerouslySetInnerHTML={{ __html: `${description}` }} />
-            </Text>
+            <Text>{label}</Text>
+            <MediaQuery smallerThan="sm" styles={{ display: "none" }}>
+              <Text size="xs" color="dimmed">
+                <div dangerouslySetInnerHTML={{ __html: `${description}` }} />
+              </Text>
+            </MediaQuery>
           </div>
         </Group>
       </div>
@@ -38,7 +36,7 @@ interface ItemProps extends SelectItemProps {
 }
 
 export function Header() {
-  const [autoCompleteValue, setAutoCompleteValue] = useState('');
+  const [selectSearch, setSelectSearch] = useState('');
   const [userMenuOpened, setUserMenuOpened] = useState(false);
 
   const { user, signOut } = useContext(AuthContext) as AuthContextType;
@@ -49,35 +47,52 @@ export function Header() {
 			variables: {
 				page: 1,
 				perPage: 50,
-        autoCompleteValue: autoCompleteValue
+        selectSearch: selectSearch
 			}
 		}
 	);
 
   const formattedData = data ? data.Page.media.map((item: any) => ({
-    id: item.id,
+    value: item.id,
     image: item.coverImage.medium,
-    value: item.title.english ? item.title.english : item.title.romaji,
+    label: item.title.english ? item.title.english : item.title.romaji,
     description: item.description,
   })) : []
 
   const { classes } = useStyles();
+  const navigate = useNavigate()
+
+  function handleNavigate(mangaId: string | null) {
+    if(mangaId) {
+      navigate(`manga/${mangaId}`)
+    }
+  }
 
   return (
     <MantineHeader height={50} className={classes.header}>
       <Link to="/" className={classes.link}>
         <Logo /> 
       </Link>
-
       <MediaQuery smallerThan="md" styles={{ flex: 1, padding: '0 24px' }}>
-        <Autocomplete
-          className={classes.autoComplete}
-          value={autoCompleteValue}
-          onChange={(value) => setAutoCompleteValue(value)}
+        <Select
+          className={classes.select}
+          onChange={(value) => handleNavigate(value)}
           placeholder="Search your favorite manga!"
-          itemComponent={AutoCompleteItem}
+          itemComponent={SelectItem}
           data={formattedData}
-          limit={50}
+          limit={10}
+          searchable
+          clearable
+          searchValue={selectSearch}
+          onSearchChange={setSelectSearch}
+          maxDropdownHeight={400}
+          nothingFound={
+            loading ? (
+              <div style={{ display: 'flex', alignItems: 'center', gap: 4, justifyContent: 'center' }}><Loader size="xs"/> Searching...</div>
+            ) : (
+              'Manga not found :('
+            )
+          }
         />
       </MediaQuery>
 

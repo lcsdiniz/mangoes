@@ -17,10 +17,6 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     backgroundPosition: 'center',
   },
 
-  mangaListSection: {
-    padding: '16px 64px'
-  },
-
   mangaInformation: {
     position: 'absolute',
     width: '50%',
@@ -43,11 +39,4 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     fontSize: 24,
     color: '#FFFFFF'
   },
-
-  sectionTitle: {
-    fontSize: 32,
-    color: 'gray',
-    margin: 0,
-    lineHeight: 'auto'
-  }
 }))

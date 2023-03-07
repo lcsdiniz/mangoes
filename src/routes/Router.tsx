@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import { Home } from "../pages/Home/Home";
 import { Layout } from "../pages/Layout";
-import { MangaDetails } from "../pages/MangaDetails";
+import { MangaDetails } from "../pages/MangaDetails/MangaDetails";
 import { Chapter } from "../pages/Chapter/Chapter";
 import { Login } from "../pages/Login/Login";
 import PrivateRoute from "./PrivateRoute";

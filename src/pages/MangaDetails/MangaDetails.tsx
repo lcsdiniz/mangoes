@@ -1,68 +1,25 @@
 import { useQuery } from "@apollo/client"
 import { useDisclosure } from '@mantine/hooks';
-import { Badge, Button, Card, Container, Grid, Rating, Select, Text, Tabs, TypographyStylesProvider, createStyles, Title, MantineColor, Box, Paper, SegmentedControl, Image, MediaQuery } from "@mantine/core";
+import { Badge, Button, Card, Container, Grid, Rating, Text, Tabs, TypographyStylesProvider, createStyles, Title, MantineColor, Box, Paper, SegmentedControl, Image, MediaQuery } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { VolumeModal } from "../components/VolumeModal/VolumeModal";
-import { GET_MANGA_DETAILS } from "../graphql/queries/getMangaDetails";
-import { GET_VOLUMES } from "../graphql/queries/getVolumes";
-import { ContentLoader } from "../components/ContentLoader/ContentLoader";
-import { Volume } from "../types/volume";
+import { VolumeModal } from "../../components/VolumeModal/VolumeModal";
+import { GET_MANGA_DETAILS } from "../../graphql/queries/getMangaDetails";
+import { GET_VOLUMES } from "../../graphql/queries/getVolumes";
+import { ContentLoader } from "../../components/ContentLoader/ContentLoader";
+import { Volume } from "../../types/volume";
+import { useStyles } from "./styles";
 
 const API_SCORE_SCALE = 100
 
 export function MangaDetails() {
 	const [orderBy, setOrderBy] = useState('number')
 	const [selectedVolume, setSelectedVolume] = useState<Volume | null>(null)
+
 	const [opened, { open, close }] = useDisclosure(false)
 	const navigate = useNavigate();
 	const { id } = useParams();
-	const useStyles = createStyles((theme, _params, getRef) => ({
-		detailsContainer: {
-			display: 'flex',
-			gap: 16
-		},
 
-		leftColumn: {
-			display: 'flex',
-			justifyContent: 'start',
-			flexDirection: 'column',
-			gap: 16
-		},
-
-		genreContainer: {
-			display: 'flex',
-			alignItems: 'center',
-			gap: 8,
-			flexWrap: 'wrap'
-		},
-
-		badgesContainer: {
-			display: 'flex',
-			gap: 8,
-			flexWrap: 'wrap'
-		},
-
-		ratingContainer: {
-			display: 'flex',
-			alignItems: 'center',
-			gap: 8
-		},
-
-		descriptionContainer: {
-			marginTop: 16
-		},
-
-		volumesContainer: {
-			marginTop: 32
-		},
-
-		volumeCover: {
-			display: 'block',
-			marginLeft: 'auto',
-			marginRight: 'auto' 
-		}
-  }))
   const { classes } = useStyles();
 
 	const { loading: mangaDetailsLoading, error: mangaDetailsError, data: mangaDetailsData } = useQuery(
@@ -112,7 +69,7 @@ export function MangaDetails() {
 
 	return (
 		<>
-			<Container mt={48}>
+			<Container mt={48} mb={48}>
 			<MediaQuery smallerThan="md" styles={{ flexDirection: 'column' }}>
 				<Card className={classes.detailsContainer}>
 					<MediaQuery smallerThan="md" styles={{ alignItems: 'center' }}>

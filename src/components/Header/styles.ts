@@ -13,7 +13,7 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     justifyContent: 'space-between',
   },
 
-  autoComplete: {
+  select: {
     flex: 0.4,
   }
 }))
