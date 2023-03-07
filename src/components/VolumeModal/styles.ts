@@ -17,6 +17,18 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     flex: 1,
   },
 
+  volumeTitle: {
+    [`@media (max-width: 50em)`]: {
+      textAlign: 'center'
+    },
+  },
+
+  volumeLastUpdate: {
+    [`@media (max-width: 50em)`]: {
+      textAlign: 'center'
+    },
+  },
+
   chapters: {
     display: "flex",
     flexDirection: "column",

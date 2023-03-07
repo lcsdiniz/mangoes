@@ -14,7 +14,12 @@ const API_SCORE_SCALE = 100
 
 export function MangaDetails() {
 	const [orderBy, setOrderBy] = useState('number')
-	const [selectedVolume, setSelectedVolume] = useState<Volume | null>(null)
+	const [selectedVolume, setSelectedVolume] = useState<Volume >({
+		chapters: [],
+		coverUrl: '',
+		lastUpdate: '0000-01-01',
+		number: 0
+	})
 
 	const [opened, { open, close }] = useDisclosure(false)
 	const navigate = useNavigate();

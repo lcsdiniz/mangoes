@@ -33,8 +33,8 @@ export function VolumeModal({ volume, opened, close }: VolumeModalProps) {
         <img width={250} src={volume.coverUrl} alt="cover" style={{ margin: "0 auto" }} />
 
         <div className={classes.volumeData}>
-          <Title order={2} m={0} lh="normal" ta="center">Volume #{volume.number}</Title>
-          <small style={{ textAlign: 'center' }}>Last update: {formatLastUpdate(volume.lastUpdate)}</small>
+          <Title order={2} m={0} lh="normal" className={classes.volumeTitle}>Volume #{volume.number}</Title>
+          <small className={classes.volumeLastUpdate}>Last update: {formatLastUpdate(volume.lastUpdate)}</small>
           
           <div className={classes.chapters}>
             {volume.chapters.map(chapter => (

@@ -1,4 +1,4 @@
-import { AspectRatio, Container, Paper, Text, Title } from '@mantine/core';
+import { AspectRatio, Center, Container, Paper, Text, Title } from '@mantine/core';
 import { GET_CHAPTER_DATA } from '../../graphql/queries/getChapterData';
 import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
@@ -27,9 +27,10 @@ export function Chapter() {
 
   return (
     <Container>
-      <Title order={1} align='center'>
+      <Title order={1} align='center' mt={32}>
         {data.Media.title.english ? data.Media.title.english : data.Media.title.romaji}
       </Title>
+      
       <Title order={2} align='center'>
         {formatChapterName(chapter!)}
       </Title>
@@ -37,13 +38,20 @@ export function Chapter() {
       <div className={classes.pagesContainer}>
         {Array.from(Array(18), (e, i) => {
           return <AspectRatio ratio={720 / 1080}>
-            <Paper key={i} shadow="xs" p="md" h={1200} bg="dark">
-              <Text size={50} align='center' color='white'>
+            <Center
+              key={i}
+              p="md"
+              h={1200}
+              sx={(theme) => ({
+                height: '2.5rem',
+                backgroundImage: theme.fn.gradient({ from: 'white', to: 'gray', deg: 45 }),
+                color: theme.white,
+            })}>
+              <Text size={50} align='center' color='white' >
                 DUMMY PAGE
               </Text>
-            </Paper>
+            </Center>
           </AspectRatio>
-          
         })}
       </div>
     </Container>
