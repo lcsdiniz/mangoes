@@ -1,0 +1,48 @@
+{
+  "name": "mangoes",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@apollo/client": "^3.7.9",
+    "@emotion/react": "^11.10.6",
+    "@headlessui/react": "^1.7.12",
+    "@heroicons/react": "^2.0.16",
+    "@mantine/carousel": "^5.10.5",
+    "@mantine/core": "^5.10.5",
+    "@mantine/dates": "^5.10.5",
+    "@mantine/dropzone": "^5.10.5",
+    "@mantine/form": "^5.10.5",
+    "@mantine/hooks": "^5.10.5",
+    "@mantine/modals": "^5.10.5",
+    "@mantine/notifications": "^5.10.5",
+    "@mantine/nprogress": "^5.10.5",
+    "@mantine/prism": "^5.10.5",
+    "@mantine/spotlight": "^5.10.5",
+    "@mantine/tiptap": "^5.10.5",
+    "@tiptap/extension-link": "^2.0.0-beta.220",
+    "@tiptap/react": "^2.0.0-beta.220",
+    "@tiptap/starter-kit": "^2.0.0-beta.220",
+    "date-fns": "^2.29.3",
+    "dayjs": "^1.11.7",
+    "embla-carousel-autoplay": "^7.0.9",
+    "embla-carousel-react": "^7.0.9",
+    "firebase": "^9.17.2",
+    "graphql": "^16.6.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.8.2"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "@vitejs/plugin-react": "^3.1.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
+  }
+}
