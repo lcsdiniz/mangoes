@@ -10,14 +10,9 @@ export const MEDIA_FRAGMENT = gql`
 		}
 		coverImage {
 			large
-			color
 		}
 		bannerImage
 		description
-		status(version: 2)
-		chapters
-		volumes
-		genres
 		staff {
 			nodes {
 				name {
