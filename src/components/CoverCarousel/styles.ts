@@ -1,9 +1,10 @@
 import { createStyles } from '@mantine/core';
 
 export const useStyles = createStyles((theme, _params, getRef) => ({
-  container: {
-    maxWidth: '100vw',
-    padding: 0
+  bannerSection: {
+    [`@media (max-width: 50em)`]: {
+      display: 'none'
+    },
   },
 
   carouselSlide: {
