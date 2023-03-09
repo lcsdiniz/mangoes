@@ -5,6 +5,12 @@ export const useStyles = createStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
+    background: 'transparent',
+    transition: 'all .3s ease-out',
+
+    ['&:hover']: {
+      background: '#373A40'
+    }
   },
 
   title: {
@@ -15,10 +21,5 @@ export const useStyles = createStyles((theme) => ({
     textOverflow: "ellipsis",
     maxWidth: '196px',
     textDecoration: 'none',
-    color: 'orange'
   },
-
-  chapter: {
-    fontSize: '14px'
-  }
 }));

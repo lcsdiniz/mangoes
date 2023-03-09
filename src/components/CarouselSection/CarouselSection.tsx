@@ -16,17 +16,26 @@ export function CarouselSection({ title, children }: CarouselSectionProps) {
 			<Title order={1} mb={16} color="orange">{title}</Title>
 
 			<Carousel
-				slideSize="20%"
+				slideSize="200px"
 				breakpoints={[
 					{ maxWidth: 'lg', slideSize: '25%' },
 					{ maxWidth: 'md', slideSize: '50%' },
 					{ maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
 				]}
+        styles={{
+          control: {
+            '&[data-inactive]': {
+              opacity: 0,
+              cursor: 'default',
+            },
+          },
+        }}
 				dragFree={false}
 				align="start"
 				withControls={true}
-				slidesToScroll={3}
-				slideGap={8}
+				slidesToScroll={1}
+				slideGap={16}
+        containScroll="keepSnaps"
 				loop
 			>
 				{children}
