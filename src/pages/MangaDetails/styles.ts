@@ -44,5 +44,13 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     display: 'block',
     marginLeft: 'auto',
     marginRight: 'auto' 
+  },
+
+  volumeCard: {
+    transition: 'all .3s ease-out',
+
+    ['&:hover']: {
+      background: '#373A40'
+    }
   }
 }))

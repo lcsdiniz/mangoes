@@ -147,20 +147,22 @@ export function MangaDetails() {
 									</Paper>
 								)
 								: (
-									<Grid mt={16}>
-										{volumesData.volumes.map((volume: Volume) => (
-											<Grid.Col
-												key={volume.number} 
-												xs={6} sm={4} md={3} 
-												onClick={() => {
-													setSelectedVolume(volume)
-													open()
-												}}
-											>
-												<img src={volume.coverUrl} alt="cover" className={classes.volumeCover}/>
-												<Text align="center" fw={700} mt={8}>Volume {volume.number}</Text>
-											</Grid.Col>
-										))}
+									<Grid mt={16} gutter="xs">
+											{volumesData.volumes.map((volume: Volume) => (
+												<Grid.Col
+													key={volume.number} 
+													xs={6} sm={4} md={3} 
+													onClick={() => {
+														setSelectedVolume(volume)
+														open()
+													}}
+												>
+													<Card withBorder p={8} className={classes.volumeCard}>
+														<img src={volume.coverUrl} alt="cover" className={classes.volumeCover}/>
+														<Text align="center" fw={700} mt={8}>Volume {volume.number}</Text>
+													</Card>
+												</Grid.Col>
+											))}
 									</Grid>
 								)
 							}
