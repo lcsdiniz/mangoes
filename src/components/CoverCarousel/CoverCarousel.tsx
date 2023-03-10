@@ -11,7 +11,7 @@ interface CoverCarouselProps {
 }
 
 export function CoverCarousel({ mangaList }: CoverCarouselProps) {
-	const autoplay = useRef(Autoplay({ delay: 5000 }));
+	const autoplay = useRef(Autoplay({ delay: 3000 }));
 
   const { classes } = useStyles();
 
