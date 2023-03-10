@@ -7,10 +7,11 @@ export const useStyles = createStyles((theme) => ({
     alignItems: 'center',
     background: 'transparent',
     transition: 'all .3s ease-out',
+    transform: '',
 
     ['&:hover']: {
-      transform: ' perspective(200px) translateZ(10px)',
-      background: '#373A40'
+      background: '#373A40',
+      transform: 'scale(1.05)',
     }
   },
 
