@@ -13,6 +13,12 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     gap: 16
   },
 
+  titleContaienr: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: 16
+  },
+
   genreContainer: {
     display: 'flex',
     alignItems: 'center',

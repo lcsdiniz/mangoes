@@ -1,14 +1,17 @@
-import { useQuery } from "@apollo/client"
+import { useMutation, useQuery } from "@apollo/client"
 import { useDisclosure } from '@mantine/hooks';
-import { Badge, Button, Card, Container, Grid, Rating, Text, Tabs, TypographyStylesProvider, createStyles, Title, MantineColor, Box, Paper, SegmentedControl, Image, MediaQuery } from "@mantine/core";
+import { Badge, Button, Card, Container, Grid, Rating, Text, Tabs, TypographyStylesProvider, Title, MantineColor, Paper, SegmentedControl, MediaQuery, ActionIcon, Tooltip } from "@mantine/core";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { IconBookmark, IconBookmarkOff } from '@tabler/icons-react';
+
 import { VolumeModal } from "../../components/VolumeModal/VolumeModal";
 import { GET_MANGA_DETAILS } from "../../graphql/queries/getMangaDetails";
 import { GET_VOLUMES } from "../../graphql/queries/getVolumes";
 import { ContentLoader } from "../../components/ContentLoader/ContentLoader";
 import { Volume } from "../../types/volume";
 import { useStyles } from "./styles";
+import { TOGGLE_FAVOURITE } from "../../graphql/mutations/toggleFavorite";
 
 const API_SCORE_SCALE = 100
 
@@ -46,6 +49,17 @@ export function MangaDetails() {
 		}
 	);
 
+	const [handleToggleMyList, { data, loading: toggleFavouriteLoading, error }] = useMutation(
+		TOGGLE_FAVOURITE, {
+			refetchQueries: [
+				{
+					query: GET_MANGA_DETAILS,
+					variables: { mediaId: Number(id) }
+				}
+			],
+		}
+	)
+
 	function calculatesScore(score: number) {
 		const scaleFiveScore = (score * 5) / API_SCORE_SCALE
 		return scaleFiveScore
@@ -63,7 +77,7 @@ export function MangaDetails() {
 				return "gray"
 		}
 	}
-	
+
 	if (mangaDetailsLoading || volumesLoading) {
 		return <div>
 			<ContentLoader />
@@ -85,7 +99,24 @@ export function MangaDetails() {
 					</MediaQuery>
 
 					<div>
-						<Title order={1}>{mangaDetailsData.Media.title.english ? mangaDetailsData.Media.title.english : mangaDetailsData.Media.title.romaji}</Title>
+						<div className={classes.titleContaienr}>
+							<Title order={1}>{mangaDetailsData.Media.title.english ? mangaDetailsData.Media.title.english : mangaDetailsData.Media.title.romaji}</Title>
+							
+							<Tooltip
+								label={mangaDetailsData.Media.isFavourite ? "Remove from \"My List\"" : "Add to \"My List\""}
+								position="top"
+								withArrow color="gray"
+							>
+								<ActionIcon
+									color="orange"
+									variant="filled"
+									onClick={() => handleToggleMyList({ variables: { mangaId: Number(id) } })}
+									loading={toggleFavouriteLoading}
+								>
+									{mangaDetailsData.Media.isFavourite ? <IconBookmarkOff size="1.125rem" /> : <IconBookmark size="1.125rem" />}
+								</ActionIcon>
+							</Tooltip>
+						</div>
 						
 						<div className={classes.genreContainer}>
 							<strong>Status: </strong>
@@ -125,7 +156,6 @@ export function MangaDetails() {
 					<Tabs defaultValue="volumes">
 						<Tabs.List>
 							<Tabs.Tab value="volumes">Volumes</Tabs.Tab>
-							{/* <Tabs.Tab value="second">Chapters</Tabs.Tab> */}
 
 							<SegmentedControl
 								value={orderBy}
