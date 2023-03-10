@@ -1,16 +1,20 @@
-import { AspectRatio, Center, Container, Text, Title } from '@mantine/core';
+import { Affix, AspectRatio, Button, Center, Container, Text, Title, Transition } from '@mantine/core';
 import { GET_CHAPTER_DATA } from '../../graphql/queries/getChapterData';
 import { useQuery } from '@apollo/client';
-import { useLocation, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { useStyles } from './styles';
 import { ContentLoader } from '../../components/ContentLoader/ContentLoader';
 import { formatChapterName } from '../../utils/format';
 import { useEffect } from 'react';
+import { IconArrowUp } from '@tabler/icons-react';
+import { useWindowScroll } from '@mantine/hooks';
 
 export function Chapter() {
-  const { classes } = useStyles();
   const { id, chapter } = useParams();
   const { hash } = useLocation();
+  const [scroll, scrollTo] = useWindowScroll();
+  const navigate = useNavigate();
+
   const { loading, error, data } = useQuery(
 		GET_CHAPTER_DATA,
 		{
@@ -19,7 +23,9 @@ export function Chapter() {
 			}
 		}
 	);
-  
+
+  const { classes } = useStyles();
+
   useEffect(() => {
     if(!loading) {
       scrollToLastPageRead()
@@ -43,34 +49,52 @@ export function Chapter() {
   if (error) return <p>Error</p>;
   
   return (
-    <Container>
-      <Title order={1} align='center' mt={32}>
-        {data.Media.title.english ? data.Media.title.english : data.Media.title.romaji}
-      </Title>
-      
-      <Title order={2} align='center'>
-        {formatChapterName(chapter!)}
-      </Title>
-      
-      <div className={classes.pagesContainer}>
-        {Array.from(Array(18), (e, i) => {
-          return <AspectRatio key={i} ratio={720 / 1080} id={`Page${i + 1}`}>
-            <Center
-              key={i}
-              p="md"
-              h={1200}
-              sx={(theme) => ({
-                height: '2.5rem',
-                backgroundImage: theme.fn.gradient({ from: 'white', to: 'gray', deg: 45 }),
-                color: theme.white,
-            })}>
-              <Text size={50} align='center' color='white' >
-                DUMMY PAGE #{i + 1}
-              </Text>
-            </Center>
-          </AspectRatio>
-        })}
-      </div>
-    </Container>
+    <>
+      <Container>
+        <Link to={`/manga/${id}`} className={classes.link}>
+          <Title order={1} align='center' color='orange' mt={32}>
+            {data.Media.title.english ? data.Media.title.english : data.Media.title.romaji}
+          </Title>
+        </Link>
+        
+        <Title order={2} align='center'>
+          {formatChapterName(chapter!)}
+        </Title>
+        
+        <div className={classes.pagesContainer}>
+          {Array.from(Array(18), (e, i) => {
+            return <AspectRatio key={i} ratio={720 / 1080} id={`Page${i + 1}`}>
+              <Center
+                key={i}
+                p="md"
+                h={1200}
+                sx={(theme) => ({
+                  height: '2.5rem',
+                  backgroundImage: theme.fn.gradient({ from: 'white', to: 'gray', deg: 45 }),
+                  color: theme.white,
+              })}>
+                <Text size={50} align='center' color='white' >
+                  DUMMY PAGE #{i + 1}
+                </Text>
+              </Center>
+            </AspectRatio>
+          })}
+        </div>
+      </Container>
+
+      <Affix position={{ bottom: 20, right: 20  }}>
+        <Transition transition="slide-up" mounted={scroll.y > 0}>
+          {(transitionStyles) => (
+            <Button
+              leftIcon={<IconArrowUp size="1rem" />}
+              style={transitionStyles}
+              onClick={() => scrollTo({ y: 0 })}
+            >
+              Back to top
+            </Button>
+          )}
+        </Transition>
+      </Affix>
+    </>
   )
 }

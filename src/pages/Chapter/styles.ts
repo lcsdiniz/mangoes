@@ -7,4 +7,8 @@ export const useStyles = createStyles((theme) => ({
     flexDirection: 'column',
     gap: '16px',
   },
+
+  link: {
+    textDecoration: 'none'
+  }
 }));
