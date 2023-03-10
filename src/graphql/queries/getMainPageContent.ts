@@ -1,9 +1,14 @@
-import { gql } from "@apollo/client";
-import { MEDIA_FRAGMENT } from "../fragments/mediaFragment";
+import { gql } from '@apollo/client';
+import { MEDIA_FRAGMENT } from '../fragments/mediaFragment';
 
 export const GET_MAIN_PAGE_CONTENT = gql`
   ${MEDIA_FRAGMENT}
-  query GetMainPageContent($mediaType: MediaType, $page: Int, $perPage: Int, $userId: Int) {
+  query GetMainPageContent(
+    $mediaType: MediaType
+    $page: Int
+    $perPage: Int
+    $userId: Int
+  ) {
     userFavorites: User(id: $userId) {
       id
       favourites {
@@ -23,7 +28,7 @@ export const GET_MAIN_PAGE_CONTENT = gql`
                 nodes {
                   name {
                     full
-                  },
+                  }
                   primaryOccupations
                 }
               }

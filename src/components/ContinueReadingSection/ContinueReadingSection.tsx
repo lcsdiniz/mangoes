@@ -1,34 +1,37 @@
-import { Carousel } from "@mantine/carousel";
-import { ContinueReadingCard } from "../ContinueReadingCard/ContinueReadingCard";
-import { CarouselSection } from "../CarouselSection/CarouselSection";
+import { Carousel } from '@mantine/carousel';
+import { ContinueReadingCard } from '../ContinueReadingCard/ContinueReadingCard';
+import { CarouselSection } from '../CarouselSection/CarouselSection';
 
-interface ContinueReadingSection {
-  title: string
+interface ContinueReadingSectionProps {
+  title: string;
   mangaList: {
-    id: number
-    title: string
-    chapter: string
-    pageUrl: string
-    progress: number
-    totalPages: number
-  }[]
+    id: number;
+    title: string;
+    chapter: string;
+    pageUrl: string;
+    progress: number;
+    totalPages: number;
+  }[];
 }
 
-export function ContinueReadingSection({ title, mangaList }: ContinueReadingSection) {
+export function ContinueReadingSection({
+  title,
+  mangaList,
+}: ContinueReadingSectionProps) {
   return (
-		<CarouselSection title={title}>
-			{mangaList.map((manga) => (
-				<Carousel.Slide key={manga.id}>
-					<ContinueReadingCard
-						id={manga.id}
-						chapter={manga.chapter}
-						pageUrl={manga.pageUrl}
-						title={manga.title}
-						progress={manga.progress}
-						totalPages={manga.totalPages}
-					/>
-				</Carousel.Slide>
-			))}
-		</CarouselSection>
-  )
+    <CarouselSection title={title}>
+      {mangaList.map((manga) => (
+        <Carousel.Slide key={manga.id}>
+          <ContinueReadingCard
+            id={manga.id}
+            chapter={manga.chapter}
+            pageUrl={manga.pageUrl}
+            title={manga.title}
+            progress={manga.progress}
+            totalPages={manga.totalPages}
+          />
+        </Carousel.Slide>
+      ))}
+    </CarouselSection>
+  );
 }

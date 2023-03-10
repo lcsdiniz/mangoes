@@ -1,15 +1,19 @@
-import { ApolloProvider } from '@apollo/client'
-import { ColorScheme, ColorSchemeProvider, MantineProvider } from '@mantine/core'
+import { ApolloProvider } from '@apollo/client';
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+} from '@mantine/core';
 import { NotificationsProvider } from '@mantine/notifications';
-import { BrowserRouter } from 'react-router-dom'
-import { client } from "./lib/apollo"
-
-import Router from './routes/Router'
-import { useState } from 'react'
-
+import { BrowserRouter } from 'react-router-dom';
+import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import AuthProvider from './hooks/auth'
 import { getFirestore } from 'firebase/firestore';
+import { client } from './lib/apollo';
+
+import Router from './routes/Router';
+
+import AuthProvider from './hooks/auth';
 import ScrollToTop from './routes/ScrollToTop';
 
 const firebaseConfig = {
@@ -19,7 +23,7 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_STORAGE_BUCKET,
   messagingSenderId: import.meta.env.VITE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_APP_ID,
-  measurementId: import.meta.env.VITE_MEASUREMENT_ID
+  measurementId: import.meta.env.VITE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
@@ -29,20 +33,23 @@ function App() {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
   const toggleColorScheme = (value?: ColorScheme) =>
     setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-    
+
   return (
     <AuthProvider>
       <ApolloProvider client={client}>
-        <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <ColorSchemeProvider
+          colorScheme={colorScheme}
+          toggleColorScheme={toggleColorScheme}
+        >
           <MantineProvider
-            theme={{ 
+            theme={{
               colorScheme,
-              primaryColor: 'orange'
+              primaryColor: 'orange',
             }}
             withGlobalStyles
             withNormalizeCSS
           >
-            <NotificationsProvider position='top-right'>
+            <NotificationsProvider position="top-right">
               <BrowserRouter>
                 <ScrollToTop />
                 <Router />
@@ -52,7 +59,7 @@ function App() {
         </ColorSchemeProvider>
       </ApolloProvider>
     </AuthProvider>
-  )
+  );
 }
 
-export default App
+export default App;

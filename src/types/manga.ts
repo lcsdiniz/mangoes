@@ -1,21 +1,21 @@
 export type Manga = {
-  id: number
-  staff: Staff
+  id: number;
+  staff: Staff;
   coverImage: {
-    large: string
-  }
-  bannerImage?: string
-  description?: string
+    large: string;
+  };
+  bannerImage?: string;
+  description?: string;
   title: {
-    english: string
-    romaji: string
-  }
-}
+    english: string;
+    romaji: string;
+  };
+};
 
 type Staff = {
   nodes: {
     name: {
-      full: string
-    }
-  }[]
-}
+      full: string;
+    };
+  }[];
+};

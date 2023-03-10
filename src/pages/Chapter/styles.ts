@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-export const useStyles = createStyles((theme) => ({
+export const useStyles = createStyles(() => ({
   pagesContainer: {
     margin: '64px 0',
     display: 'flex',
@@ -9,6 +9,6 @@ export const useStyles = createStyles((theme) => ({
   },
 
   link: {
-    textDecoration: 'none'
-  }
+    textDecoration: 'none',
+  },
 }));

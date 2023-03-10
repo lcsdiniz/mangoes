@@ -1,9 +1,9 @@
 import { createStyles } from '@mantine/core';
 
-export const useStyles = createStyles((theme, _params, getRef) => ({
+export const useStyles = createStyles(() => ({
   bannerSection: {
     [`@media (max-width: 50em)`]: {
-      display: 'none'
+      display: 'none',
     },
   },
 
@@ -28,16 +28,16 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
     margin: 'auto 0',
     display: 'flex',
     flexDirection: 'column',
-    justifyContent: 'center'
+    justifyContent: 'center',
   },
 
   mangaTitle: {
     fontSize: 48,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
 
   mangaDescription: {
     fontSize: 24,
-    color: '#FFFFFF'
+    color: '#FFFFFF',
   },
-}))
+}));

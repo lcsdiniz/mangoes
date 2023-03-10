@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { AuthContext, AuthContextType } from '../hooks/auth';
 import { Navigate } from 'react-router-dom';
+import { AuthContext, AuthContextType } from '../hooks/auth';
 
-export const AnonymousRoute = ({ children }: any) => {
+export function AnonymousRoute({ children }: any) {
   const { user } = useContext(AuthContext) as AuthContextType;
 
   if (user) {
@@ -10,4 +10,4 @@ export const AnonymousRoute = ({ children }: any) => {
   }
 
   return children;
-};
+}

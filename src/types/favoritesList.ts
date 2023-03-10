@@ -1,5 +1,5 @@
-import { Manga } from "./manga"
+import { Manga } from './manga';
 
 export type Favorite = {
-  node: Manga
-}
+  node: Manga;
+};

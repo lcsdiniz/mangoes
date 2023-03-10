@@ -1,11 +1,11 @@
-import { createStyles } from "@mantine/core";
+import { createStyles } from '@mantine/core';
 
-export const useStyles = createStyles((theme, _params, getRef) => ({
+export const useStyles = createStyles(() => ({
   link: {
     color: 'orange',
-    textDecoration: 'none'
+    textDecoration: 'none',
   },
-  
+
   header: {
     padding: '0 30px',
     display: 'flex',
@@ -15,5 +15,5 @@ export const useStyles = createStyles((theme, _params, getRef) => ({
 
   select: {
     flex: 0.4,
-  }
-}))
+  },
+}));

@@ -1,5 +1,5 @@
 import { Loader } from '@mantine/core';
-import { useStyles } from "./styles";
+import { useStyles } from './styles';
 
 export function ContentLoader() {
   const { classes } = useStyles();
@@ -8,5 +8,5 @@ export function ContentLoader() {
     <div className={classes.loaderContainer}>
       <Loader size={80} />
     </div>
-  )
+  );
 }

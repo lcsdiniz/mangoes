@@ -6,8 +6,6 @@ import {
   Paper,
   Group,
   Button,
-  Divider,
-  Notification ,
   Anchor,
   Stack,
   Container,
@@ -26,25 +24,41 @@ export function Login() {
 
     validate: {
       email: (val) => (/^\S+@\S+$/.test(val) ? null : 'Invalid email'),
-      password: (val) => (val.length <= 6 ? 'Password should include at least 6 characters' : null),
+      password: (val) =>
+        val.length <= 6
+          ? 'Password should include at least 6 characters'
+          : null,
     },
   });
 
   return (
-    <Container style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
+    <Container
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        height: '100vh',
+      }}
+    >
       <Paper radius="md" m="0 auto" w={500} p="xl" withBorder>
-        <Text size="lg" weight={500} align='center'>
+        <Text size="lg" weight={500} align="center">
           Welcome to Mangoes
         </Text>
 
-        <form onSubmit={form.onSubmit(() => signIn(form.values.email, form.values.password))}>
+        <form
+          onSubmit={form.onSubmit(() =>
+            signIn(form.values.email, form.values.password)
+          )}
+        >
           <Stack>
             <TextInput
               required
               label="Email"
               placeholder="example@email.com"
               value={form.values.email}
-              onChange={(event) => form.setFieldValue('email', event.currentTarget.value)}
+              onChange={(event) =>
+                form.setFieldValue('email', event.currentTarget.value)
+              }
               error={form.errors.email && 'Invalid email'}
               radius="md"
               disabled={loading}
@@ -54,8 +68,13 @@ export function Login() {
               required
               label="Password"
               value={form.values.password}
-              onChange={(event) => form.setFieldValue('password', event.currentTarget.value)}
-              error={form.errors.password && 'Password should include at least 6 characters'}
+              onChange={(event) =>
+                form.setFieldValue('password', event.currentTarget.value)
+              }
+              error={
+                form.errors.password &&
+                'Password should include at least 6 characters'
+              }
               radius="md"
               disabled={loading}
             />
@@ -78,5 +97,5 @@ export function Login() {
         </form>
       </Paper>
     </Container>
-  )
+  );
 }
