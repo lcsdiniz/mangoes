@@ -9,8 +9,8 @@ import {
   Transition,
 } from '@mantine/core';
 import { useQuery } from '@apollo/client';
-import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { useEffect } from 'react';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { useCallback, useEffect } from 'react';
 import { IconArrowUp } from '@tabler/icons-react';
 import { useWindowScroll } from '@mantine/hooks';
 import { useStyles } from './styles';
@@ -22,7 +22,6 @@ export function Chapter() {
   const { id, chapter } = useParams();
   const { hash } = useLocation();
   const [scroll, scrollTo] = useWindowScroll();
-  const navigate = useNavigate();
 
   const { loading, error, data } = useQuery(GET_CHAPTER_DATA, {
     variables: {
@@ -32,19 +31,17 @@ export function Chapter() {
 
   const { classes } = useStyles();
 
-  function scrollToLastPageRead() {
-    const id = hash.replace('#', '');
-    const element = document.getElementById(id);
+  const scrollToLastPageRead = useCallback(() => {
+    const pageElementId = hash.replace('#', '');
+    const element = document.getElementById(pageElementId);
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
-  }
+  }, [hash]);
 
   useEffect(() => {
-    if (!loading) {
-      scrollToLastPageRead();
-    }
-  }, [scrollToLastPageRead, loading]);
+    scrollToLastPageRead();
+  }, [scrollToLastPageRead]);
 
   if (loading) {
     return (
