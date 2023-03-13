@@ -32,12 +32,14 @@ export function Chapter() {
   const { classes } = useStyles();
 
   const scrollToLastPageRead = useCallback(() => {
-    const pageElementId = hash.replace('#', '');
-    const element = document.getElementById(pageElementId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+    if (!loading) {
+      const pageElementId = hash.replace('#', '');
+      const element = document.getElementById(pageElementId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' });
+      }
     }
-  }, [hash]);
+  }, [hash, loading]);
 
   useEffect(() => {
     scrollToLastPageRead();
