@@ -5,13 +5,11 @@ import {
   Text,
   MantineColor,
   SelectItemProps,
-  Autocomplete,
   Menu,
   Avatar,
   UnstyledButton,
   MediaQuery,
   Select,
-  Progress,
   Loader,
 } from '@mantine/core';
 import { forwardRef, useContext, useState } from 'react';

@@ -88,7 +88,7 @@ export function Login() {
               onClick={() => {}}
               size="xs"
             >
-              Don't have an account? Register
+              Don&apos;t have an account? Register
             </Anchor>
             <Button type="submit" radius="xl" loading={loading}>
               Login
