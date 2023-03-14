@@ -5,7 +5,7 @@ export function ContentLoader() {
   const { classes } = useStyles();
 
   return (
-    <div className={classes.loaderContainer}>
+    <div className={classes.loaderContainer} data-testid="loader-container">
       <Loader size={80} />
     </div>
   );
