@@ -126,7 +126,7 @@ export function Header() {
         <Menu.Target>
           <UnstyledButton>
             <Group spacing={7}>
-              <Avatar alt={user!.email!} radius="xl" size={20} />
+              <Avatar alt={user!.email!} radius="xl" size={35} />
 
               <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
                 <Text weight={500} size="sm" mr={3}>
