@@ -1,6 +1,7 @@
 import { Carousel } from '@mantine/carousel';
 import { Title } from '@mantine/core';
 import { ReactNode } from 'react';
+import { useMediaQuery } from '@mantine/hooks';
 import { useStyles } from './styles';
 
 interface CarouselSectionProps {
@@ -10,6 +11,7 @@ interface CarouselSectionProps {
 
 export function CarouselSection({ title, children }: CarouselSectionProps) {
   const { classes } = useStyles();
+  const isMobile = useMediaQuery('(max-width: 50em)');
 
   return (
     <section className={classes.section}>
@@ -18,11 +20,11 @@ export function CarouselSection({ title, children }: CarouselSectionProps) {
       </Title>
 
       <Carousel
-        slideSize="200px"
+        slideSize={isMobile ? '33%' : 200}
         breakpoints={[
           { maxWidth: 'lg', slideSize: '25%' },
-          { maxWidth: 'md', slideSize: '50%' },
-          { maxWidth: 'sm', slideSize: '100%', slideGap: 0 },
+          { maxWidth: 'md', slideSize: '33%' },
+          { maxWidth: 'sm', slideSize: '33%', slideGap: 8 },
         ]}
         styles={{
           control: {
@@ -37,7 +39,7 @@ export function CarouselSection({ title, children }: CarouselSectionProps) {
         withControls
         slidesToScroll={1}
         slideGap={16}
-        containScroll="keepSnaps"
+        containScroll="trimSnaps"
         loop
       >
         {children}

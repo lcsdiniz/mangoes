@@ -13,6 +13,10 @@ export const useStyles = createStyles(() => ({
       background: '#373A40',
       transform: 'scale(1.05)',
     },
+
+    [`@media (max-width: 50em)`]: {
+      padding: 8,
+    },
   },
 
   title: {
@@ -22,5 +26,20 @@ export const useStyles = createStyles(() => ({
     textOverflow: 'ellipsis',
     maxWidth: '196px',
     textDecoration: 'none',
+
+    [`@media (max-width: 50em)`]: {
+      maxWidth: '120px',
+    },
+  },
+
+  author: {
+    fontWeight: 'bold',
+    whiteSpace: 'nowrap',
+    overflow: 'hidden',
+    textOverflow: 'ellipsis',
+
+    [`@media (max-width: 50em)`]: {
+      maxWidth: '120px',
+    },
   },
 }));
