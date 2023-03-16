@@ -46,14 +46,15 @@ function AuthProvider({
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        const responseUser = {
-          email: userCredential.user.email ? userCredential.user.email : '',
-          accessToken: userCredential.user.accessToken!
-            ? userCredential.user.accessToken!
-            : '',
-        };
-        setUser(responseUser);
-        localStorage.setItem('@mangoes-user', JSON.stringify(responseUser));
+        const userEmail = userCredential.user.email
+          ? userCredential.user.email
+          : '';
+
+        userCredential.user.getIdToken().then((token) => {
+          const authUser = { email: userEmail, accessToken: token };
+          setUser(authUser);
+          localStorage.setItem('@mangoes-user', JSON.stringify(authUser));
+        });
       })
       .catch((error) => {
         showNotification({
