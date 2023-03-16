@@ -53,6 +53,7 @@ export const useStyles = createStyles(() => ({
   },
 
   volumeCard: {
+    cursor: 'pointer',
     transition: 'all .3s ease-out',
 
     '&:hover': {
