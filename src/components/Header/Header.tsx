@@ -29,7 +29,7 @@ const SelectItem = forwardRef<HTMLDivElement, ItemProps>(
 
           <div>
             <Text>{label}</Text>
-            <MediaQuery smallerThan="sm" styles={{ display: 'none' }}>
+            <MediaQuery smallerThan="lg" styles={{ display: 'none' }}>
               <Text size="xs" color="dimmed">
                 <div dangerouslySetInnerHTML={{ __html: `${description}` }} />
               </Text>

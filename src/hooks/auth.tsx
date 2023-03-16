@@ -3,7 +3,7 @@ import {
   signOut as firebaseSignOut,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { PropsWithChildren, createContext, useState } from 'react';
+import { PropsWithChildren, ReactNode, createContext, useState } from 'react';
 import { showNotification } from '@mantine/notifications';
 import { User } from '../types/user';
 
@@ -14,13 +14,28 @@ export type AuthContextType = {
   signOut: () => void;
 };
 
+interface AuthProviderProps {
+  children: ReactNode;
+  value?: User;
+}
+
 export const AuthContext = createContext<AuthContextType | null>(null);
 
-const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
+function AuthProvider({
+  children,
+  value = {
+    email: '',
+    accessToken: '',
+  },
+}: AuthProviderProps): React.ReactElement<PropsWithChildren> {
   const [user, setUser] = useState<User | null>(() => {
     const storedUser = localStorage.getItem('@mangoes-user')
       ? JSON.parse(localStorage.getItem('@mangoes-user')!)
       : null;
+
+    if (!storedUser && value.email !== '') {
+      return value;
+    }
 
     return storedUser;
   });
@@ -31,11 +46,14 @@ const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
     setLoading(true);
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        setUser(userCredential.user);
-        localStorage.setItem(
-          '@mangoes-user',
-          JSON.stringify(userCredential.user)
-        );
+        const responseUser = {
+          email: userCredential.user.email ? userCredential.user.email : '',
+          accessToken: userCredential.user.accessToken!
+            ? userCredential.user.accessToken!
+            : '',
+        };
+        setUser(responseUser);
+        localStorage.setItem('@mangoes-user', JSON.stringify(responseUser));
       })
       .catch((error) => {
         showNotification({
@@ -61,6 +79,6 @@ const AuthProvider: React.FC<PropsWithChildren> = ({ children }) => {
       {children}
     </AuthContext.Provider>
   );
-};
+}
 
 export default AuthProvider;
